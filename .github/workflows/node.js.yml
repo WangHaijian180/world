@@ -29,14 +29,30 @@ jobs:
     - run: npm test
       env:
         CI: true
-    
-    - name: Deploy
-      uses: easingthemes/ssh-deploy@v2.0.7
-      env:
+    - name: ssh deploy
+      # You may pin to the exact commit or the version.
+      # uses: easingthemes/ssh-deploy@4042d3876fbba3e76b95c16a18830ab0c152aeec
+      uses: easingthemes/ssh-deploy@v2.1.4
+      with:
+        # Private Key
         SSH_PRIVATE_KEY: ${{ secrets.ALIYUN }}
-        ARGS: "-rltgoDzvO --delete"
-        SOURCE: "dist/"
+        # Remote host
         REMOTE_HOST: "139.196.49.192"
+        # Remote user
         REMOTE_USER: "root"
+        # Source directory
+        SOURCE: "dist/"
+        # Target directory
         TARGET: "/www/wwwroot/whj/"
+        # Arguments to pass to rsync
+        ARGS:  "-rltgoDzvO --delete"
+#     - name: Deploy
+#       uses: easingthemes/ssh-deploy@v2.0.7
+#       env:
+#         SSH_PRIVATE_KEY: ${{ secrets.ALIYUN }}
+#         ARGS: "-rltgoDzvO --delete"
+#         SOURCE: "dist/"
+#         REMOTE_HOST: "139.196.49.192"
+#         REMOTE_USER: "root"
+#         TARGET: "/www/wwwroot/whj/"
       
